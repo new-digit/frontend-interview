@@ -1,17 +1,11 @@
-## 請依據需求修復 bug
+#### 1. 請依據需求修復 Please Fix Bugs According to Requirements
 
-## Please Fix Bugs According to Requirements
+#### 2. 優化組件並補全型別定義 Optimize Components and Complete Type Definitions
 
-## 優化組件並補全型別定義
+### menu
 
-## Optimize Components and Complete Type Definitions
+- 初始渲染"loading" 直到取得資料 Render "loading" initially until data is retrieved.
 
-# menu
+### todo list
 
-- 初始渲染"loading"，直到取得資料
-- Render "loading" initially until data is retrieved.
-
-# todo list
-
-- 點擊可以完成待辦事項
-- Clicking should mark a task as complete.
+- 點擊可以完成待辦事項 Clicking should mark a task as complete.
