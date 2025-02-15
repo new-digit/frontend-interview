@@ -30,13 +30,13 @@ export default function TodoList() {
 
   return (
     <>
-      {todo.map((item, index) => (
+      {list.map((item, index) => (
         <Button
-          key={index}
-          index={index}
+          key={item.id}
+          id={item.id}
           name={item.name}
           isCompleted={item.isCompleted}
-          handleClick={handleClick}
+          onClick={() => handleClick(index)}
         />
       ))}
     </>
@@ -44,18 +44,18 @@ export default function TodoList() {
 }
 
 function Button({
-  index,
+  id,
   name,
   isCompleted,
-  handleClick,
+  onClick,
 }: {
-  index: number;
+  id: number;
   name: string;
   isCompleted: boolean;
-  handleClick: (index: number) => void;
+  onClick: () => void;
 }) {
   return (
-    <button key={index} className="flex gap-2" onClick={() => handleClick(index)}>
+    <button key={id} className="flex gap-2" onClick={onClick}>
       {isCompleted ? <p>✅</p> : <p>❌</p>}
       <p>{name}</p>
     </button>
