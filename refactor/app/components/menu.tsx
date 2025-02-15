@@ -1,7 +1,14 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+
+// 假設fakeFetch是一個3秒後回傳API結果的function
+
+type List = {
+  id: number;
+  name: string;
+};
 
 export default function Menu() {
-  const [menuList, setmenuList] = useState([]);
+  const [menuList, setmenuList] = useState<List[]>([]);
 
   if (menuList === []) {
     return null;
@@ -9,27 +16,16 @@ export default function Menu() {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getData();
+      const data = await fakeFetch();
       setmenuList(data);
     }
     fetchData();
   }, []);
 
-  const menuSize = useMemo(() => {
-    if (menuList.length < 3) {
-      return "short menu";
-    } else if (menuList.length > 3) {
-      return "long menu";
-    } else if (!menuList) {
-      return "no menu";
-    }
-  }, []);
-
   return (
     <div className="px-4">
-      <h1 className="my-1 w-fit font-semibold">{menuSize}</h1>
-      {menuList.map((item, index) => (
-        <ul key={index}>
+      {menuList.map((item) => (
+        <ul key={item.id}>
           <li className="list-disc">{item.name}</li>
         </ul>
       ))}
@@ -37,7 +33,7 @@ export default function Menu() {
   );
 }
 
-function getData() {
+function fakeFetch(): Promise<List[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
@@ -54,7 +50,7 @@ function getData() {
   });
 }
 
-function getData2() {
+function fakeFetch2(): Promise<List[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
