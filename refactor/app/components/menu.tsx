@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-// 假設fakeFetch是一個3秒後回傳API結果的function
+// 假設mockFetch是一個3秒後回傳API結果的function
 
 type List = {
   id: number;
@@ -8,7 +8,7 @@ type List = {
 };
 
 export default function Menu() {
-  const [menuList, setmenuList] = useState<List[]>([]);
+  const [menuList, setMenuList] = useState<List[]>([]);
 
   if (menuList === []) {
     return null;
@@ -16,8 +16,8 @@ export default function Menu() {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await fakeFetch();
-      setmenuList(data);
+      const data = await mockFetch();
+      setMenuList(data);
     }
     fetchData();
   }, []);
@@ -33,7 +33,7 @@ export default function Menu() {
   );
 }
 
-function fakeFetch(): Promise<List[]> {
+function mockFetch(): Promise<List[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
@@ -44,27 +44,6 @@ function fakeFetch(): Promise<List[]> {
         {
           id: 2,
           name: "chicken",
-        },
-      ]);
-    }, 3000);
-  });
-}
-
-function fakeFetch2(): Promise<List[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        {
-          id: 1,
-          name: "steak",
-        },
-        {
-          id: 2,
-          name: "chicken",
-        },
-        {
-          id: 3,
-          name: "fish",
         },
       ]);
     }, 3000);
