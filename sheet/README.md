@@ -47,5 +47,5 @@ https://www.figma.com/design/3RzJHJpz4Bo4JfTQvVZu15/Frontend-Interview?node-id=0
 - 刪除不需要發送請求，只要改變UI即可
 - 型別不能使用any
 - 使用專案內的 mockFetch 完成功能
-<br/>
+
 ![mock-fetch](https://github.com/new-digit/frontend-interview/blob/main/sheet/public/mock-fetch.png)
