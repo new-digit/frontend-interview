@@ -8,22 +8,22 @@ https://www.figma.com/design/3RzJHJpz4Bo4JfTQvVZu15/Frontend-Interview?node-id=0
 
 ##### 功能
 
-- ![feature1](https://github.com/new-digit/frontend-interview/blob/main/sheet/public/feature-1.png)
+![feature1](https://github.com/new-digit/frontend-interview/blob/main/sheet/public/feature-1.png)
 
 1. 點選黃框處可以選擇特定交易，並可以點擊按鈕刪除
 2. 點選紅框可以全選該頁所有交易，並可以點擊按鈕刪除
 
-- ![feature2](https://github.com/new-digit/frontend-interview/blob/main/sheet/public/feature-2.png)
+![feature2](https://github.com/new-digit/frontend-interview/blob/main/sheet/public/feature-2.png)
 
 1. 可以在搜尋欄搜尋特定交易(至少支持單一欄位搜尋，例如 ID 搜尋)
 2. 點擊 REFRESH 重新抓取清單，抓取時需要有 loading 狀態的 UI 呈現
 
-- ![feature3](https://github.com/new-digit/frontend-interview/blob/main/sheet/public/feature-3.png)
+![feature3](https://github.com/new-digit/frontend-interview/blob/main/sheet/public/feature-3.png)
 
 1. 點選黃框處可以刪除單筆資料
 2. 點選紅框處將 Balance 欄位的狀態互相切換
 
-- ![feature4](https://github.com/new-digit/frontend-interview/blob/main/sheet/public/feature-4.png)
+![feature4](https://github.com/new-digit/frontend-interview/blob/main/sheet/public/feature-4.png)
 
 1. 點擊箭頭可以切換分頁，並呈現該頁相對應的資料數量
 
