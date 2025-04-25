@@ -6,6 +6,8 @@
 
 https://www.figma.com/design/3RzJHJpz4Bo4JfTQvVZu15/Frontend-Interview?node-id=0-1&m=dev&t=VtVfzRuBm4L0hXG0-1
 
+---
+
 ##### 功能
 
 ![feature1](https://github.com/new-digit/frontend-interview/blob/main/sheet/public/feature-1.png)
@@ -26,6 +28,8 @@ https://www.figma.com/design/3RzJHJpz4Bo4JfTQvVZu15/Frontend-Interview?node-id=0
 ![feature4](https://github.com/new-digit/frontend-interview/blob/main/sheet/public/feature-4.png)
 
 1. 點擊箭頭可以切換分頁，並呈現該頁相對應的資料數量
+
+---
 
 ##### 備註
 
