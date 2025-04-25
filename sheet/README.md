@@ -1,6 +1,11 @@
 ## 請依據需求與設計稿完成功能與介面
 
+1. Fork
+2. 完成功能
+3. 發起PR
+4. 通知人資
 
+------
 
 ##### 設計稿
 
@@ -33,6 +38,7 @@ https://www.figma.com/design/3RzJHJpz4Bo4JfTQvVZu15/Frontend-Interview?node-id=0
 
 ##### 備註
 
-- 刪除不需要發送請求，只要改變 UI 即可
+- 刪除不需要發送請求，只要改變UI即可
+- 型別不能使用any
 - 使用專案內的 mockFetch 完成功能
 ![mock-fetch](https://github.com/new-digit/frontend-interview/blob/main/sheet/public/mock-fetch.png)
