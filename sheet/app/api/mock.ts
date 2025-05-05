@@ -5,7 +5,7 @@ export type AccountData = {
   totalBalance: number;
   issueDate: number;
   balance: number;
-  isPaid: boolean;
+  hasPaid: boolean;
 };
 
 export function mockFetch({
@@ -46,7 +46,7 @@ const mockData: AccountData[] = [
     totalBalance: 10230.75,
     issueDate: 1714003200000, // 2024-04-25
     balance: 230.75,
-    isPaid: false,
+    hasPaid: false,
   },
   {
     id: 2,
@@ -55,7 +55,7 @@ const mockData: AccountData[] = [
     totalBalance: 15480.0,
     issueDate: 1711411200000, // 2024-03-26
     balance: 480.0,
-    isPaid: true,
+    hasPaid: true,
   },
   {
     id: 3,
@@ -64,7 +64,7 @@ const mockData: AccountData[] = [
     totalBalance: 9200.5,
     issueDate: 1706745600000, // 2024-02-01
     balance: 1200.5,
-    isPaid: true,
+    hasPaid: true,
   },
   {
     id: 4,
@@ -73,7 +73,7 @@ const mockData: AccountData[] = [
     totalBalance: 18900.0,
     issueDate: 1704067200000, // 2024-01-01
     balance: 1900.0,
-    isPaid: true,
+    hasPaid: true,
   },
   {
     id: 5,
@@ -82,7 +82,7 @@ const mockData: AccountData[] = [
     totalBalance: 6600.35,
     issueDate: 1716768000000, // 2024-05-27
     balance: 600.35,
-    isPaid: false,
+    hasPaid: false,
   },
   {
     id: 6,
@@ -91,7 +91,7 @@ const mockData: AccountData[] = [
     totalBalance: 13200.0,
     issueDate: 1710374400000, // 2024-03-14
     balance: 200.0,
-    isPaid: false,
+    hasPaid: false,
   },
   {
     id: 7,
@@ -100,7 +100,7 @@ const mockData: AccountData[] = [
     totalBalance: 8750.75,
     issueDate: 1698796800000, // 2023-11-01
     balance: 750.75,
-    isPaid: true,
+    hasPaid: true,
   },
   {
     id: 8,
@@ -109,7 +109,7 @@ const mockData: AccountData[] = [
     totalBalance: 10050.0,
     issueDate: 1709251200000, // 2024-02-29
     balance: 50.0,
-    isPaid: true,
+    hasPaid: true,
   },
   {
     id: 9,
@@ -118,7 +118,7 @@ const mockData: AccountData[] = [
     totalBalance: 14560.6,
     issueDate: 1701388800000, // 2023-12-01
     balance: 1560.6,
-    isPaid: false,
+    hasPaid: false,
   },
   {
     id: 10,
@@ -127,7 +127,7 @@ const mockData: AccountData[] = [
     totalBalance: 3900.2,
     issueDate: 1719878400000, // 2024-08-02
     balance: 900.2,
-    isPaid: false,
+    hasPaid: false,
   },
   {
     id: 11,
@@ -136,7 +136,7 @@ const mockData: AccountData[] = [
     totalBalance: 12700.0,
     issueDate: 1712294400000, // 2024-04-05
     balance: 700.0,
-    isPaid: false,
+    hasPaid: false,
   },
   {
     id: 12,
@@ -145,7 +145,7 @@ const mockData: AccountData[] = [
     totalBalance: 7600.9,
     issueDate: 1722470400000, // 2024-08-31
     balance: 600.9,
-    isPaid: false,
+    hasPaid: false,
   },
   {
     id: 13,
@@ -154,6 +154,6 @@ const mockData: AccountData[] = [
     totalBalance: 11110.11,
     issueDate: 1720915200000, // 2024-08-13
     balance: 110.11,
-    isPaid: true,
+    hasPaid: true,
   },
 ] as const;
