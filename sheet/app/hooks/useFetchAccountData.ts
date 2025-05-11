@@ -13,7 +13,11 @@ interface FetchParams {
 
 export const useFetchAccountData = ({ onSuccess, onError }: UseFetchAccountDataOptions = {}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<AccountData[] | null>(null);
+  const [data, setData] = useState<{
+    data: AccountData[];
+    totalCount: number;
+    currentPage: number;
+  } | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const isMounted = useRef(true);
 
@@ -28,7 +32,7 @@ export const useFetchAccountData = ({ onSuccess, onError }: UseFetchAccountDataO
         if (!isMounted.current) return;
         setData(res);
         setIsLoading(false);
-        onSuccess?.(res);
+        onSuccess?.(res.data);
       } catch (err) {
         if (!isMounted.current) return;
         setError(err as Error);

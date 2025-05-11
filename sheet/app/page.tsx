@@ -2,6 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import InvoiceTable from './components/InvoiceTable';
 import { useFetchAccountData } from './hooks/useFetchAccountData';
+import Pagination from '@/components/ui/Pagination';
+
+const PAGE_SIZE = 10;
 
 
 const Page = () => {
@@ -14,7 +17,7 @@ const Page = () => {
   }, []);
 
   // 過濾資料
-  const filteredInvoices = (getAccountData.data?? []).filter(
+  const filteredInvoices = (getAccountData.data?.data ?? []).filter(
     (invoice) =>
       invoice.name.toLowerCase().includes(search.toLowerCase()) ||
       invoice.id.toString().includes(search),
@@ -54,6 +57,11 @@ const Page = () => {
     setSelectedIds([]);
   };
 
+  // 換頁
+  const handlePageChange = (page: number) => {
+    getAccountData.fetchData({ page, pageSize: 10 });
+  };
+
   return (
     <main className="m-8">
       <div className="bg-white rounded-xl shadow p-6">
@@ -67,6 +75,13 @@ const Page = () => {
           onDeleteSelected={handleDeleteSelected}
           onRefresh={handleRefresh}
           isLoading={getAccountData.isLoading}
+        />
+        <Pagination
+          totalCount={getAccountData.data?.totalCount ?? 0}
+          pageSize={PAGE_SIZE}
+          pageCount={Math.ceil((getAccountData.data?.totalCount ?? 0) / PAGE_SIZE)}
+          currentPage={getAccountData.data?.currentPage ?? 1}
+          onPageChange={handlePageChange}
         />
       </div>
     </main>
