@@ -1,7 +1,7 @@
-import React from "react";
-import ChevronLeftIcon from "../icons/ChevronLeftIcon";
-import ChevronRightIcon from "../icons/ChevronRightIcon";
-import IconButton from "./IconButton";
+import React from 'react';
+import ChevronLeftIcon from '../icons/ChevronLeftIcon';
+import ChevronRightIcon from '../icons/ChevronRightIcon';
+import IconButton from './IconButton';
 
 interface PaginationProps {
   totalCount: number;
@@ -29,11 +29,11 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-between mt-4 text-sm text-gray-500">
+    <div className="flex items-center justify-end mt-4 text-sm text-gray-500 gap-4">
       <span>
         {start}-{end} of {totalCount}
       </span>
-      <div className="flex gap-2">
+      <div className="flex gap-4">
         <IconButton
           aria-label="Previous Page"
           tabIndex={0}
@@ -57,4 +57,4 @@ const Pagination: React.FC<PaginationProps> = ({
   );
 };
 
-export default Pagination; 
+export default Pagination;
