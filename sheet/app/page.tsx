@@ -13,7 +13,7 @@ const Page = () => {
   const getAccountData = useFetchAccountData();
 
   useEffect(() => {
-    getAccountData.fetchData({ page: 1, pageSize: 10 });
+    getAccountData.fetchData({ page: 1, pageSize: PAGE_SIZE });
   }, []);
 
   // 過濾資料
@@ -46,7 +46,7 @@ const Page = () => {
 
   // 刷新
   const handleRefresh = () => {
-    getAccountData.fetchData({ page: 1, pageSize: 10 });
+    getAccountData.fetchData({ page: 1, pageSize: PAGE_SIZE });
     setSelectedIds([]);
     setSearch('');
   };
@@ -59,7 +59,7 @@ const Page = () => {
 
   // 換頁
   const handlePageChange = (page: number) => {
-    getAccountData.fetchData({ page, pageSize: 10 });
+    getAccountData.fetchData({ page, pageSize: PAGE_SIZE });
   };
 
   return (
