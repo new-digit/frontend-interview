@@ -15,31 +15,21 @@ import ViewIcon from '../../components/icons/ViewIcon';
 import MoreIcon from '../../components/icons/MoreIcon';
 import IconButton from '../../components/ui/IconButton';
 import Skeleton from '../../components/ui/Skeleton';
-
-export type Invoice = {
-  id: string;
-  client: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-  total: string;
-  issuedDate: string;
-  balance: string;
-  status: 'Paid' | 'Unpaid' | 'Partial';
-};
+import { AccountData } from '../api/mock';
 
 type InvoiceTableProps = {
-  invoices: Invoice[];
-  selectedIds: string[];
+  invoices: AccountData[];
+  selectedIds: number[];
   search: string;
   onSearchChange: (value: string) => void;
   onSelectAll: () => void;
-  onSelectRow: (id: string) => void;
+  onSelectRow: (id: number) => void;
   onDeleteSelected: () => void;
   onRefresh: () => void;
   isLoading?: boolean;
 };
+
+const getAvatar = (id: number) => `/avatars/0${(id % 7) + 1}.png`;
 
 const InvoiceTableSkeletonRow = () => (
   <TableRow>
@@ -89,20 +79,18 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
   isLoading = false,
 }) => {
   // 狀態標籤
-  const renderStatus = (status: Invoice['status']) => {
-    if (status === 'Paid')
+  const renderStatus = (hasPaid: boolean) => {
+    if (hasPaid)
       return (
         <span className="bg-green-100 text-green-700 rounded-full px-3 py-1 text-xs font-medium">
           Paid
         </span>
       );
-    if (status === 'Unpaid')
-      return (
-        <span className="bg-red-200 text-red-700 rounded-full px-3 py-1 text-xs font-medium">
-          Unpaid
-        </span>
-      );
-    return null;
+    return (
+      <span className="bg-red-200 text-red-700 rounded-full px-3 py-1 text-xs font-medium">
+        Unpaid
+      </span>
+    );
   };
 
   return (
@@ -197,27 +185,21 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <Image
-                        src={invoice.client.avatar}
-                        alt={invoice.client.name}
+                        src={getAvatar(invoice.id)}
+                        alt={invoice.name}
                         width={32}
                         height={32}
                         className="w-8 h-8 rounded-full border"
                       />
                       <div>
-                        <div className="font-medium text-gray-900">{invoice.client.name}</div>
-                        <div className="text-xs text-gray-500">{invoice.client.email}</div>
+                        <div className="font-medium text-gray-900">{invoice.name}</div>
+                        <div className="text-xs text-gray-500">{invoice.mail}</div>
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell>{invoice.total}</TableCell>
-                  <TableCell>{invoice.issuedDate}</TableCell>
-                  <TableCell>
-                    {invoice.status === 'Partial' ? (
-                      <span className="text-gray-700">{invoice.balance}</span>
-                    ) : (
-                      renderStatus(invoice.status)
-                    )}
-                  </TableCell>
+                  <TableCell>{`$${invoice.totalBalance.toLocaleString()}`}</TableCell>
+                  <TableCell>{new Date(invoice.issueDate).toLocaleDateString()}</TableCell>
+                  <TableCell>{renderStatus(invoice.hasPaid)}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <IconButton
