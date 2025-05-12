@@ -63,7 +63,7 @@ const mockData: AccountData[] = [
     mail: 'alice.chen@example.com',
     totalBalance: 10230.75,
     issueDate: 1714003200000, // 2024-04-25
-    balance: 230.75,
+    balance: -230.75, // 因測試負數需要，更改此資料
     hasPaid: false,
   },
   {

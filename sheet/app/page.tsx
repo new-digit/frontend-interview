@@ -41,6 +41,11 @@ const Page = () => {
     setSelectedIds([]);
   };
 
+  // 刪除單筆
+  const handleDeleteSingle = (id: number) => {
+    setSelectedIds((prev) => prev.filter((sid) => sid !== id));
+  };
+
   // 刷新
   const handleRefresh = () => {
     getAccountData.fetchData({ page: 1, pageSize: PAGE_SIZE });
@@ -82,6 +87,7 @@ const Page = () => {
               selectedIds={selectedIds}
               onSelectAll={handleSelectAll}
               onSelectRow={handleSelectRow}
+              onDelete={handleDeleteSingle}
               isLoading={getAccountData.isLoading}
             />
             {/* 分頁 */}
