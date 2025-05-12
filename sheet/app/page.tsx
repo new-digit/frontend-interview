@@ -17,16 +17,15 @@ const Page = () => {
     getAccountData.fetchData({ page: 1, pageSize: PAGE_SIZE });
   }, []);
 
-  // 過濾搜尋資料
-  const filteredInvoices = filterAccountData(getAccountData.data?.data ?? [], search);
+  const Invoices = getAccountData.data?.data ?? [];
 
   // 全選
   const handleSelectAll = () => {
-    if (selectedIds.length === filteredInvoices.length) {
+    if (selectedIds.length === Invoices.length) {
       setSelectedIds([]);
       return;
     }
-    setSelectedIds(filteredInvoices?.map((i) => i.id) || []);
+    setSelectedIds(Invoices?.map((i) => i.id) || []);
   };
 
   // 單選
@@ -52,6 +51,7 @@ const Page = () => {
   const handleSearchChange = (value: string) => {
     setSearch(value);
     setSelectedIds([]);
+    getAccountData.fetchData({ page: 1, pageSize: PAGE_SIZE, search: value });
   };
 
   // 換頁
@@ -68,10 +68,11 @@ const Page = () => {
           onDeleteSelected={handleDeleteSelected}
           onRefresh={handleRefresh}
           selectedCount={selectedIds.length}
+          search={search}
         />
         {/* 表格 */}
         <InvoiceTable
-          invoices={filteredInvoices}
+          invoices={Invoices}
           selectedIds={selectedIds}
           search={search}
           onSearchChange={handleSearchChange}
@@ -84,7 +85,7 @@ const Page = () => {
         {/* 分頁 */}
         <Pagination
           totalCount={getAccountData.data?.totalCount ?? 0}
-          pageSize={PAGE_SIZE}
+          pageSize={Invoices.length ?? 0}
           pageCount={Math.ceil((getAccountData.data?.totalCount ?? 0) / PAGE_SIZE)}
           currentPage={getAccountData.data?.currentPage ?? 1}
           onPageChange={handlePageChange}
