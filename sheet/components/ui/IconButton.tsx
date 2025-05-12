@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
 type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  "aria-label": string;
+  'aria-label': string;
   children: React.ReactNode;
 };
 
 const IconButton: React.FC<IconButtonProps> = ({
-  "aria-label": ariaLabel,
+  'aria-label': ariaLabel,
   tabIndex = 0,
-  className = "",
+  className = '',
   children,
   ...props
 }) => (
@@ -16,11 +16,11 @@ const IconButton: React.FC<IconButtonProps> = ({
     type="button"
     aria-label={ariaLabel}
     tabIndex={tabIndex}
-    className={`rounded-full p-1 cursor-pointer hover:bg-gray-200 focus:outline-none transition ${className}`}
+    className={`rounded-full p-1 cursor-pointer hover:bg-gray-200 focus:outline-none transition disabled:pointer-events-none disabled:opacity-50 ${className}`}
     {...props}
   >
     {children}
   </button>
 );
 
-export default IconButton; 
+export default IconButton;
