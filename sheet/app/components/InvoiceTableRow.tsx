@@ -76,8 +76,10 @@ const InvoiceTableRow: React.FC<InvoiceTableRowProps> = ({
           </div>
         </div>
       </TableCell>
-      <TableCell>{`$${invoice.totalBalance.toLocaleString()}`}</TableCell>
-      <TableCell>{new Date(invoice.issueDate).toLocaleDateString()}</TableCell>
+      <TableCell className="text-gray-500">{`$${invoice.totalBalance.toLocaleString()}`}</TableCell>
+      <TableCell className="text-gray-500">
+        {new Date(invoice.issueDate).toLocaleDateString()}
+      </TableCell>
       <TableCell>
         {showBalance ? formatCurrency(invoice.balance) : renderStatus(invoice.hasPaid)}
       </TableCell>
