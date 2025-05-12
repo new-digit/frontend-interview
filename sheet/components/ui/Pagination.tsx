@@ -2,6 +2,7 @@ import React from 'react';
 import ChevronLeftIcon from '../icons/ChevronLeftIcon';
 import ChevronRightIcon from '../icons/ChevronRightIcon';
 import IconButton from './IconButton';
+import { cn } from '@/lib/utils';
 
 interface PaginationProps {
   totalCount: number;
@@ -9,6 +10,7 @@ interface PaginationProps {
   pageCount: number;
   currentPage: number;
   onPageChange: (page: number) => void;
+  className?: string;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -17,6 +19,7 @@ const Pagination: React.FC<PaginationProps> = ({
   pageCount,
   currentPage,
   onPageChange,
+  className,
 }) => {
   const start = totalCount === 0 ? 0 : (currentPage - 1) * pageSize + 1;
   const end = Math.min(currentPage * pageSize, totalCount);
@@ -29,7 +32,9 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-end mt-4 text-sm text-gray-500 gap-4">
+    <div
+      className={cn('flex items-center justify-end mt-4 text-sm text-gray-500 gap-4', className)}
+    >
       <span>
         {start}-{end} of {totalCount}
       </span>

@@ -16,6 +16,7 @@ const Page = () => {
     getAccountData.fetchData({ page: 1, pageSize: PAGE_SIZE });
   }, []);
 
+  // 收款單列表
   const Invoices = getAccountData.data?.data ?? [];
 
   const isError = !!getAccountData.error;
@@ -65,9 +66,10 @@ const Page = () => {
 
   return (
     <main className="m-8">
-      <div className="bg-white rounded-xl shadow p-6">
+      <div className="bg-white rounded-xl shadow py-6">
         {/* Header 操作列 */}
         <TableHeaderActions
+          className="px-6"
           onSearchChange={handleSearchChange}
           onDeleteSelected={handleDeleteSelected}
           onRefresh={handleRefresh}
@@ -92,6 +94,7 @@ const Page = () => {
             />
             {/* 分頁 */}
             <Pagination
+              className="px-6"
               totalCount={getAccountData.data?.totalCount ?? 0}
               pageSize={PAGE_SIZE}
               pageCount={Math.ceil((getAccountData.data?.totalCount ?? 0) / PAGE_SIZE)}

@@ -1,12 +1,14 @@
 import React, { useMemo, useEffect } from 'react';
 import debounce from 'lodash.debounce';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface TableHeaderActionsProps {
   onSearchChange: (value: string) => void;
   onDeleteSelected: () => void;
   onRefresh: () => void;
   selectedCount: number;
+  className?: string;
 }
 
 const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
@@ -14,6 +16,7 @@ const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
   onDeleteSelected,
   onRefresh,
   selectedCount,
+  className,
 }) => {
   // 用 useMemo 確保 debounce 只建立一次
   const debouncedSearch = useMemo(() => debounce(onSearchChange, 300), [onSearchChange]);
@@ -26,7 +29,12 @@ const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
   }, [debouncedSearch]);
 
   return (
-    <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-4 mb-4">
+    <div
+      className={cn(
+        'flex flex-col md:flex-row md:items-center md:justify-end gap-4 mb-4',
+        className,
+      )}
+    >
       <input
         type="text"
         onChange={(e) => debouncedSearch(e.target.value)}

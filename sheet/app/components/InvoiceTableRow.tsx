@@ -23,14 +23,12 @@ function formatCurrency(amount: number) {
 const renderStatus = (hasPaid: boolean) => {
   if (hasPaid)
     return (
-      <span className="bg-green-100 text-green-700 rounded-full px-3 py-1 text-xs font-medium">
+      <span className="bg-green-100 text-green-400 rounded-full px-3 py-1 text-sm font-medium">
         Paid
       </span>
     );
   return (
-    <span className="bg-red-200 text-red-700 rounded-full px-3 py-1 text-xs font-medium">
-      Unpaid
-    </span>
+    <span className="bg-red-400 text-white rounded-full px-3 py-1 text-sm font-medium">Unpaid</span>
   );
 };
 
@@ -48,21 +46,23 @@ const InvoiceTableRow: React.FC<InvoiceTableRowProps> = ({
 
   return (
     <TableRow key={invoice.id} data-state={selected ? 'selected' : undefined}>
-      <TableCell>
-        <input
-          type="checkbox"
-          checked={selected}
-          onChange={() => onSelectRow(invoice.id)}
-          aria-label={`Select invoice ${invoice.id}`}
-          tabIndex={0}
-          className="accent-primary w-4 h-4"
-        />
+      <TableCell className="pl-6">
+        <div className="flex items-center">
+          <input
+            type="checkbox"
+            checked={selected}
+            onChange={() => onSelectRow(invoice.id)}
+            aria-label={`Select invoice ${invoice.id}`}
+            tabIndex={0}
+            className="accent-primary w-4 h-4"
+          />
+        </div>
       </TableCell>
       <TableCell>
         <span className="text-purple-500">#{invoice.id}</span>
       </TableCell>
       <TableCell>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-center gap-3">
           <Image
             src={getAvatar(invoice.id)}
             alt={invoice.name}
@@ -84,7 +84,7 @@ const InvoiceTableRow: React.FC<InvoiceTableRowProps> = ({
         {showBalance ? formatCurrency(invoice.balance) : renderStatus(invoice.hasPaid)}
       </TableCell>
       <TableCell>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-6 justify-center">
           <IconButton
             aria-label="Delete Invoice"
             tabIndex={0}
