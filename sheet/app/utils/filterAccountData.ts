@@ -1,6 +1,6 @@
 import { AccountData } from '../api/mock';
 
-export function filterAccountData(data: AccountData[], search: string): AccountData[] {
+export function filterAccountData(data: AccountData[], search?: string): AccountData[] {
   if (!search) return data;
   const lower = search.toLowerCase();
   return data.filter(

@@ -9,6 +9,7 @@ interface UseFetchAccountDataOptions {
 interface FetchParams {
   page: number;
   pageSize: number;
+  search?: string;
 }
 
 export const useFetchAccountData = ({ onSuccess, onError }: UseFetchAccountDataOptions = {}) => {
@@ -22,13 +23,13 @@ export const useFetchAccountData = ({ onSuccess, onError }: UseFetchAccountDataO
   const isMounted = useRef(true);
 
   const fetchData = useCallback(
-    async ({ page, pageSize }: FetchParams) => {
+    async ({ page, pageSize, search }: FetchParams) => {
       isMounted.current = true;
       setIsLoading(true);
       setError(null);
       setData(null);
       try {
-        const res = await mockFetch({ page, pageSize });
+        const res = await mockFetch({ page, pageSize, search });
         if (!isMounted.current) return;
         setData(res);
         setIsLoading(false);

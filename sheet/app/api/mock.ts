@@ -1,3 +1,5 @@
+import { filterAccountData } from '../utils/filterAccountData';
+
 export type AccountData = {
   id: number;
   name: string;
@@ -11,13 +13,15 @@ export type AccountData = {
 export function mockFetch({
   page,
   pageSize,
+  search,
 }: {
   page: number;
   pageSize: number;
+  search?: string;
 }): Promise<{ data: AccountData[]; totalCount: number; currentPage: number }> {
   const random = Math.random();
   if (random >= 0.3) {
-    return onSuccess({ page, pageSize });
+    return onSuccess({ page, pageSize, search });
   } else {
     return onError();
   }
@@ -26,16 +30,20 @@ export function mockFetch({
 function onSuccess({
   page,
   pageSize,
+  search,
 }: {
   page: number;
   pageSize: number;
+  search?: string;
 }): Promise<{ data: AccountData[]; totalCount: number; currentPage: number }> {
   return new Promise((resolve) => {
     setTimeout(() => {
+      const filterData = filterAccountData(mockData, search);
+
       resolve({
-        data: mockData.slice((page - 1) * pageSize, page * pageSize),
+        data: filterData.slice((page - 1) * pageSize, page * pageSize),
         currentPage: page,
-        totalCount: mockData.length,
+        totalCount: filterData.length,
       });
     }, 2500);
   });
