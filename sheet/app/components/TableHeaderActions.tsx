@@ -31,7 +31,7 @@ const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
     <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-4 mb-4">
       <input
         type="text"
-        defaultValue={search}
+        value={search}
         onChange={(e) => debouncedSearch(e.target.value)}
         placeholder="Search Invoice"
         className="border border-gray-200 rounded-md px-4 py-2 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-primary"
