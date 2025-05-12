@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react';
 import InvoiceTable from './components/InvoiceTable';
 import { useFetchAccountData } from './hooks/useFetchAccountData';
 import Pagination from '@/components/ui/Pagination';
+import { filterAccountData } from './utils/filterAccountData';
+import TableHeaderActions from './components/TableHeaderActions';
 
 const PAGE_SIZE = 10;
-
 
 const Page = () => {
   const [search, setSearch] = useState('');
@@ -16,12 +17,8 @@ const Page = () => {
     getAccountData.fetchData({ page: 1, pageSize: PAGE_SIZE });
   }, []);
 
-  // 過濾資料
-  const filteredInvoices = (getAccountData.data?.data ?? []).filter(
-    (invoice) =>
-      invoice.name.toLowerCase().includes(search.toLowerCase()) ||
-      invoice.id.toString().includes(search),
-  );
+  // 過濾搜尋資料
+  const filteredInvoices = filterAccountData(getAccountData.data?.data ?? [], search);
 
   // 全選
   const handleSelectAll = () => {
@@ -65,6 +62,14 @@ const Page = () => {
   return (
     <main className="m-8">
       <div className="bg-white rounded-xl shadow p-6">
+        {/* Header 操作列 */}
+        <TableHeaderActions
+          onSearchChange={handleSearchChange}
+          onDeleteSelected={handleDeleteSelected}
+          onRefresh={handleRefresh}
+          selectedCount={selectedIds.length}
+        />
+        {/* 表格 */}
         <InvoiceTable
           invoices={filteredInvoices}
           selectedIds={selectedIds}
@@ -76,6 +81,7 @@ const Page = () => {
           onRefresh={handleRefresh}
           isLoading={getAccountData.isLoading}
         />
+        {/* 分頁 */}
         <Pagination
           totalCount={getAccountData.data?.totalCount ?? 0}
           pageSize={PAGE_SIZE}
