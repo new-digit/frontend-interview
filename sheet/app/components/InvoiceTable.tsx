@@ -8,7 +8,7 @@ import {
   TableRow,
   TableCell,
 } from '../../components/ui/table';
-import Skeleton from '../../components/ui/Skeleton';
+import Skeleton from '../../components/ui/skeleton';
 import { AccountData } from '../api/mock';
 import InvoiceTableRow from './InvoiceTableRow';
 import { PAGE_SIZE } from '../constants';

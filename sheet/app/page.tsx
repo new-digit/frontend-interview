@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import InvoiceTable from './components/InvoiceTable';
 import { useFetchAccountData } from './hooks/useFetchAccountData';
-import Pagination from '@/components/ui/Pagination';
+import Pagination from '@/components/ui/pagination';
 import TableHeaderActions from './components/TableHeaderActions';
 import { PAGE_SIZE } from './constants';
 

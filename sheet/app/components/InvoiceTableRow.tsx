@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import IconButton from '../../components/ui/IconButton';
-import DeleteIcon from '../../components/icons/DeleteIcon';
-import ViewIcon from '../../components/icons/ViewIcon';
-import MoreIcon from '../../components/icons/MoreIcon';
 import { AccountData } from '../api/mock';
 import { TableRow, TableCell } from '@/components/ui/table';
+import IconButton from '../../components/ui/iconButton';
+import DeleteIcon from '../../components/icons/delete';
+import ViewIcon from '../../components/icons/view';
+import MoreIcon from '../../components/icons/more';
 
 interface InvoiceTableRowProps {
   invoice: AccountData;

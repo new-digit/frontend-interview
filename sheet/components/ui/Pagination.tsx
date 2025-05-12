@@ -1,9 +1,9 @@
 import React from 'react';
-import ChevronLeftIcon from '../icons/ChevronLeftIcon';
-import ChevronRightIcon from '../icons/ChevronRightIcon';
-import IconButton from './IconButton';
+import ChevronLeftIcon from '../icons/chevronLeft';
+import ChevronRightIcon from '../icons/chevronRight';
+import IconButton from './iconButton';
 import { cn } from '@/lib/utils';
-import Skeleton from './Skeleton';
+import Skeleton from './skeleton';
 interface PaginationProps {
   totalCount: number;
   pageSize: number;
