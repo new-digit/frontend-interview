@@ -18,6 +18,8 @@ const Page = () => {
 
   const Invoices = getAccountData.data?.data ?? [];
 
+  const isError = !!getAccountData.error;
+
   // 全選
   const handleSelectAll = () => {
     if (selectedIds.length === Invoices.length) {
@@ -66,22 +68,32 @@ const Page = () => {
           onRefresh={handleRefresh}
           selectedCount={selectedIds.length}
         />
-        {/* 表格 */}
-        <InvoiceTable
-          invoices={Invoices}
-          selectedIds={selectedIds}
-          onSelectAll={handleSelectAll}
-          onSelectRow={handleSelectRow}
-          isLoading={getAccountData.isLoading}
-        />
-        {/* 分頁 */}
-        <Pagination
-          totalCount={getAccountData.data?.totalCount ?? 0}
-          pageSize={Invoices.length ?? 0}
-          pageCount={Math.ceil((getAccountData.data?.totalCount ?? 0) / PAGE_SIZE)}
-          currentPage={getAccountData.data?.currentPage ?? 1}
-          onPageChange={handlePageChange}
-        />
+        {isError && (
+          <div className="mt-4 text-red-500 text-center">
+            <p className="font-semibold text-lg mb-2">無法取得資料</p>
+            <p>請嘗試重新搜尋，或稍後再試。</p>
+          </div>
+        )}
+        {!isError && (
+          <>
+            {/* 表格 */}
+            <InvoiceTable
+              invoices={Invoices}
+              selectedIds={selectedIds}
+              onSelectAll={handleSelectAll}
+              onSelectRow={handleSelectRow}
+              isLoading={getAccountData.isLoading}
+            />
+            {/* 分頁 */}
+            <Pagination
+              totalCount={getAccountData.data?.totalCount ?? 0}
+              pageSize={Invoices.length ?? 0}
+              pageCount={Math.ceil((getAccountData.data?.totalCount ?? 0) / PAGE_SIZE)}
+              currentPage={getAccountData.data?.currentPage ?? 1}
+              onPageChange={handlePageChange}
+            />
+          </>
+        )}
       </div>
     </main>
   );
