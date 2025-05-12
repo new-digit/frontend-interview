@@ -9,7 +9,6 @@ import TableHeaderActions from './components/TableHeaderActions';
 const PAGE_SIZE = 10;
 
 const Page = () => {
-  const [search, setSearch] = useState('');
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const getAccountData = useFetchAccountData();
 
@@ -44,14 +43,12 @@ const Page = () => {
   const handleRefresh = () => {
     getAccountData.fetchData({ page: 1, pageSize: PAGE_SIZE });
     setSelectedIds([]);
-    setSearch('');
   };
 
   // 搜尋
   const handleSearchChange = (value: string) => {
-    setSearch(value);
-    setSelectedIds([]);
     getAccountData.fetchData({ page: 1, pageSize: PAGE_SIZE, search: value });
+    setSelectedIds([]);
   };
 
   // 換頁
@@ -68,18 +65,13 @@ const Page = () => {
           onDeleteSelected={handleDeleteSelected}
           onRefresh={handleRefresh}
           selectedCount={selectedIds.length}
-          search={search}
         />
         {/* 表格 */}
         <InvoiceTable
           invoices={Invoices}
           selectedIds={selectedIds}
-          search={search}
-          onSearchChange={handleSearchChange}
           onSelectAll={handleSelectAll}
           onSelectRow={handleSelectRow}
-          onDeleteSelected={handleDeleteSelected}
-          onRefresh={handleRefresh}
           isLoading={getAccountData.isLoading}
         />
         {/* 分頁 */}

@@ -20,12 +20,8 @@ import { Button } from '@/components/ui/button';
 type InvoiceTableProps = {
   invoices: AccountData[];
   selectedIds: number[];
-  search: string;
-  onSearchChange: (value: string) => void;
   onSelectAll: () => void;
   onSelectRow: (id: number) => void;
-  onDeleteSelected: () => void;
-  onRefresh: () => void;
   isLoading?: boolean;
 };
 
@@ -70,12 +66,8 @@ const InvoiceTableSkeletonRow = () => (
 const InvoiceTable: React.FC<InvoiceTableProps> = ({
   invoices,
   selectedIds,
-  search,
-  onSearchChange,
   onSelectAll,
   onSelectRow,
-  onDeleteSelected,
-  onRefresh,
   isLoading = false,
 }) => {
   // 狀態標籤

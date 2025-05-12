@@ -7,7 +7,6 @@ interface TableHeaderActionsProps {
   onDeleteSelected: () => void;
   onRefresh: () => void;
   selectedCount: number;
-  search: string;
 }
 
 const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
@@ -15,7 +14,6 @@ const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
   onDeleteSelected,
   onRefresh,
   selectedCount,
-  search,
 }) => {
   // 用 useMemo 確保 debounce 只建立一次
   const debouncedSearch = useMemo(() => debounce(onSearchChange, 300), [onSearchChange]);
@@ -31,7 +29,6 @@ const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
     <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-4 mb-4">
       <input
         type="text"
-        value={search}
         onChange={(e) => debouncedSearch(e.target.value)}
         placeholder="Search Invoice"
         className="border border-gray-200 rounded-md px-4 py-2 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-primary"
