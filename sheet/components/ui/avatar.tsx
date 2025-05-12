@@ -3,21 +3,23 @@ import Image from 'next/image';
 
 interface UserAvatarProps {
   alt?: string;
+  src?: string;
   className?: string;
   width?: number;
   height?: number;
 }
 
-const DEFAULT_AVATAR = '/avatars/default.png';
+const DEFAULT_AVATAR = '/profile.png';
 
-const UserAvatar: React.FC<UserAvatarProps> = ({
+const Avatar: React.FC<UserAvatarProps> = ({
   alt = 'User Avatar',
+  src = DEFAULT_AVATAR,
   className = '',
   width = 32,
   height = 32,
 }) => (
   <Image
-    src={DEFAULT_AVATAR}
+    src={src}
     alt={alt}
     width={width}
     height={height}
@@ -25,4 +27,4 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
   />
 );
 
-export default UserAvatar;
+export default Avatar;

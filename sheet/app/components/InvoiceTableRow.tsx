@@ -6,6 +6,7 @@ import IconButton from '../../components/ui/iconButton';
 import DeleteIcon from '../../components/icons/delete';
 import ViewIcon from '../../components/icons/view';
 import MoreIcon from '../../components/icons/more';
+import Avatar from '@/components/ui/avatar';
 
 interface InvoiceTableRowProps {
   invoice: AccountData;
@@ -62,21 +63,15 @@ const InvoiceTableRow: React.FC<InvoiceTableRowProps> = ({
         <span className="text-purple-500">#{invoice.id}</span>
       </TableCell>
       <TableCell>
-        <div className="flex items-center justify-center gap-3">
-          <Image
-            src={getAvatar(invoice.id)}
-            alt={invoice.name}
-            width={32}
-            height={32}
-            className="w-8 h-8 rounded-full border"
-          />
+        <div className="flex items-center gap-3 w-full xl:w-1/2">
+          <Avatar alt={invoice.name} />
           <div>
             <div className="font-medium text-gray-900">{invoice.name}</div>
             <div className="text-xs text-gray-500">{invoice.mail}</div>
           </div>
         </div>
       </TableCell>
-      <TableCell className="text-gray-500">{`$${invoice.totalBalance.toLocaleString()}`}</TableCell>
+      <TableCell className="text-gray-500 text-left xl:text-center">{`$${invoice.totalBalance.toLocaleString()}`}</TableCell>
       <TableCell className="text-gray-500">
         {new Date(invoice.issueDate).toLocaleDateString()}
       </TableCell>
