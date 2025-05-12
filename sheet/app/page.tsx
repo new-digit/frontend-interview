@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react';
 import InvoiceTable from './components/InvoiceTable';
 import { useFetchAccountData } from './hooks/useFetchAccountData';
 import Pagination from '@/components/ui/Pagination';
-import { filterAccountData } from './utils/filterAccountData';
 import TableHeaderActions from './components/TableHeaderActions';
 
 const PAGE_SIZE = 10;
 
 const Page = () => {
+  // 因作業關係，並無需要執行 API，因此使用狀態來模擬已被刪除的收款單，並會在搜尋或是換頁時重置
+  const [removeInvoiceIds, setRemoveInvoiceIds] = useState<number[]>([]);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const getAccountData = useFetchAccountData();
 
@@ -17,14 +18,25 @@ const Page = () => {
   }, []);
 
   // 收款單列表
-  const Invoices = getAccountData.data?.data ?? [];
+  const Invoices =
+    getAccountData.data?.data.filter((Invoice) => !removeInvoiceIds.includes(Invoice.id)) ?? [];
 
   const isError = !!getAccountData.error;
+
+  // 重置刪除的收款單
+  const resetRemoveInvoiceIds = () => {
+    setRemoveInvoiceIds([]);
+  };
+
+  // 重置選取的收款單
+  const resetSelectedIds = () => {
+    setSelectedIds([]);
+  };
 
   // 全選
   const handleSelectAll = () => {
     if (selectedIds.length === Invoices.length) {
-      setSelectedIds([]);
+      resetSelectedIds();
       return;
     }
     setSelectedIds(Invoices?.map((i) => i.id) || []);
@@ -37,31 +49,37 @@ const Page = () => {
     );
   };
 
-  // 刪除
+  // 刪除目前選取的收款單
   const handleDeleteSelected = () => {
-    setSelectedIds([]);
+    setRemoveInvoiceIds((prev) => [...prev, ...selectedIds]);
+    resetSelectedIds();
   };
 
-  // 刪除單筆
+  // 刪除單筆收款單
   const handleDeleteSingle = (id: number) => {
-    setSelectedIds((prev) => prev.filter((sid) => sid !== id));
+    setRemoveInvoiceIds((prev) => [...prev, id]);
+    resetSelectedIds();
   };
 
-  // 刷新
+  // 刷新收款單列表
   const handleRefresh = () => {
     getAccountData.fetchData({ page: 1, pageSize: PAGE_SIZE });
-    setSelectedIds([]);
+    resetSelectedIds();
+    resetRemoveInvoiceIds();
   };
 
-  // 搜尋
+  // 搜尋收款單
   const handleSearchChange = (value: string) => {
     getAccountData.fetchData({ page: 1, pageSize: PAGE_SIZE, search: value });
-    setSelectedIds([]);
+    resetSelectedIds();
+    resetRemoveInvoiceIds();
   };
 
   // 換頁
   const handlePageChange = (page: number) => {
     getAccountData.fetchData({ page, pageSize: PAGE_SIZE });
+    resetSelectedIds();
+    resetRemoveInvoiceIds();
   };
 
   return (
@@ -75,6 +93,7 @@ const Page = () => {
           onRefresh={handleRefresh}
           selectedCount={selectedIds.length}
         />
+        {/* 錯誤訊息 */}
         {isError && (
           <div className="mt-4 text-red-500 text-center">
             <p className="font-semibold text-lg mb-2">無法取得資料</p>
