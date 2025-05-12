@@ -4,8 +4,7 @@ import InvoiceTable from './components/InvoiceTable';
 import { useFetchAccountData } from './hooks/useFetchAccountData';
 import Pagination from '@/components/ui/Pagination';
 import TableHeaderActions from './components/TableHeaderActions';
-
-const PAGE_SIZE = 10;
+import { PAGE_SIZE } from './constants';
 
 const Page = () => {
   // 因作業關係，並無需要執行 API，因此使用狀態來模擬已被刪除的收款單，並會在搜尋或是換頁時重置
@@ -113,6 +112,7 @@ const Page = () => {
             />
             {/* 分頁 */}
             <Pagination
+              isLoading={getAccountData.isLoading}
               className="px-6"
               totalCount={getAccountData.data?.totalCount ?? 0}
               pageSize={PAGE_SIZE}

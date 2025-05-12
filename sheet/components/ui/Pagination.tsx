@@ -3,7 +3,7 @@ import ChevronLeftIcon from '../icons/ChevronLeftIcon';
 import ChevronRightIcon from '../icons/ChevronRightIcon';
 import IconButton from './IconButton';
 import { cn } from '@/lib/utils';
-
+import Skeleton from './Skeleton';
 interface PaginationProps {
   totalCount: number;
   pageSize: number;
@@ -11,6 +11,7 @@ interface PaginationProps {
   currentPage: number;
   onPageChange: (page: number) => void;
   className?: string;
+  isLoading?: boolean;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -20,6 +21,7 @@ const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   onPageChange,
   className,
+  isLoading,
 }) => {
   const start = totalCount === 0 ? 0 : (currentPage - 1) * pageSize + 1;
   const end = Math.min(currentPage * pageSize, totalCount);
@@ -36,7 +38,13 @@ const Pagination: React.FC<PaginationProps> = ({
       className={cn('flex items-center justify-end mt-4 text-sm text-gray-500 gap-4', className)}
     >
       <span>
-        {start}-{end} of {totalCount}
+        {isLoading ? (
+          <Skeleton className="w-12 h-4 rounded-full" />
+        ) : (
+          <>
+            {start}-{end} of {totalCount}
+          </>
+        )}
       </span>
       <div className="flex gap-4">
         <IconButton

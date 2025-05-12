@@ -11,6 +11,7 @@ import {
 import Skeleton from '../../components/ui/Skeleton';
 import { AccountData } from '../api/mock';
 import InvoiceTableRow from './InvoiceTableRow';
+import { PAGE_SIZE } from '../constants';
 
 type InvoiceTableProps = {
   invoices: AccountData[];
@@ -23,14 +24,16 @@ type InvoiceTableProps = {
 
 const InvoiceTableSkeletonRow = () => (
   <TableRow>
-    <TableCell>
-      <Skeleton className="w-4 h-4" />
+    <TableCell className="pl-6">
+      <div className="flex items-center">
+        <Skeleton className="w-4 h-4" />
+      </div>
     </TableCell>
     <TableCell>
-      <Skeleton className="w-16 h-4" />
+      <Skeleton className="w-16 h-4 mx-auto block" />
     </TableCell>
     <TableCell>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center justify-center gap-3">
         <Skeleton className="w-8 h-8 rounded-full" />
         <div>
           <Skeleton className="w-24 h-4 mb-1" />
@@ -39,16 +42,16 @@ const InvoiceTableSkeletonRow = () => (
       </div>
     </TableCell>
     <TableCell>
-      <Skeleton className="w-14 h-4" />
+      <Skeleton className="w-14 h-4 mx-auto block" />
     </TableCell>
     <TableCell>
-      <Skeleton className="w-20 h-4" />
+      <Skeleton className="w-20 h-4 mx-auto block" />
     </TableCell>
     <TableCell>
-      <Skeleton className="w-12 h-5 rounded-full" />
+      <Skeleton className="w-12 h-5 mx-auto block" />
     </TableCell>
     <TableCell>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center justify-center gap-3">
         <Skeleton className="w-7 h-7 rounded-full" />
         <Skeleton className="w-7 h-7 rounded-full" />
         <Skeleton className="w-7 h-7 rounded-full" />
@@ -91,7 +94,7 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
       </TableHeader>
       <TableBody>
         {isLoading
-          ? Array.from({ length: 8 }).map((_, idx) => <InvoiceTableSkeletonRow key={idx} />)
+          ? Array.from({ length: PAGE_SIZE }).map((_, idx) => <InvoiceTableSkeletonRow key={idx} />)
           : invoices.map((invoice) => (
               <InvoiceTableRow
                 key={invoice.id}
