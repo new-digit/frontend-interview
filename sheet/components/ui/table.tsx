@@ -17,7 +17,9 @@ function Table({ className, ...props }: React.ComponentProps<'table'>) {
 }
 
 function TableHeader({ className, ...props }: React.ComponentProps<'thead'>) {
-  return <thead data-slot="table-header" className={cn('[&_tr]:border-b', className)} {...props} />;
+  return (
+    <thead data-slot="table-header" className={cn('[&_tr]:border-b ', className)} {...props} />
+  );
 }
 
 function TableBody({ className, ...props }: React.ComponentProps<'tbody'>) {
@@ -53,12 +55,18 @@ function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
   );
 }
 
-function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
+function TableHead({
+  className,
+  isShowSeparator = true,
+  ...props
+}: React.ComponentProps<'th'> & { isShowSeparator?: boolean }) {
   return (
     <th
       data-slot="table-head"
       className={cn(
-        'text-foreground h-10 px-2 text-center align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+        'relative text-foreground h-10 px-2 text-center align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+        isShowSeparator &&
+          'after:content-[""] after:absolute after:top-3 after:bottom-3 after:right-0 after:w-[2px] after:bg-gray-300 last:after:hidden', // 分隔線偽類
         className,
       )}
       {...props}

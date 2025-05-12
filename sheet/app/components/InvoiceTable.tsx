@@ -69,7 +69,7 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
     <Table>
       <TableHeader>
         <TableRow className="bg-gray-100">
-          <TableHead className="pl-6 flex items-center">
+          <TableHead className="pl-6 flex items-center" isShowSeparator={false}>
             {!isLoading && (
               <input
                 type="checkbox"
