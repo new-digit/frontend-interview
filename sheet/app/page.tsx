@@ -87,7 +87,7 @@ const Page = () => {
             {/* 分頁 */}
             <Pagination
               totalCount={getAccountData.data?.totalCount ?? 0}
-              pageSize={Invoices.length ?? 0}
+              pageSize={PAGE_SIZE}
               pageCount={Math.ceil((getAccountData.data?.totalCount ?? 0) / PAGE_SIZE)}
               currentPage={getAccountData.data?.currentPage ?? 1}
               onPageChange={handlePageChange}
