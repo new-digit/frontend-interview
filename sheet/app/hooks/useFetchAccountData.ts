@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useEffect } from 'react';
+import { useRef, useCallback, useEffect, useReducer } from 'react';
 import { mockFetch, AccountData } from '../api/mock';
 
 interface UseFetchAccountDataOptions {
@@ -12,46 +12,66 @@ interface FetchParams {
   search?: string;
 }
 
-export const useFetchAccountData = ({ onSuccess, onError }: UseFetchAccountDataOptions = {}) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<{
+type State = {
+  isLoading: boolean;
+  data: {
     data: AccountData[];
     totalCount: number;
     currentPage: number;
-  } | null>(null);
-  const [error, setError] = useState<Error | null>(null);
+  } | null;
+  error: Error | null;
+};
+
+type Action =
+  | { type: 'FETCH_START' }
+  | { type: 'FETCH_SUCCESS'; payload: State['data'] }
+  | { type: 'FETCH_ERROR'; error: Error };
+
+const initialState: State = {
+  isLoading: false,
+  data: null,
+  error: null,
+};
+
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case 'FETCH_START':
+      return { ...state, isLoading: true, error: null, data: null };
+    case 'FETCH_SUCCESS':
+      return { ...state, isLoading: false, data: action.payload, error: null };
+    case 'FETCH_ERROR':
+      return { ...state, isLoading: false, error: action.error };
+    default:
+      return state;
+  }
+}
+
+export const useFetchAccountData = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const isMounted = useRef(true);
 
-  const fetchData = useCallback(
-    async ({ page, pageSize, search }: FetchParams) => {
-      isMounted.current = true;
-      setIsLoading(true);
-      setError(null);
-      setData(null);
-      try {
-        const res = await mockFetch({ page, pageSize, search });
-        if (!isMounted.current) return;
-        setData(res);
-        setIsLoading(false);
-        onSuccess?.(res.data);
-      } catch (err) {
-        if (!isMounted.current) return;
-        setError(err as Error);
-        setIsLoading(false);
-        onError?.(err as Error);
+  const fetchData = useCallback(async ({ page, pageSize, search }: FetchParams) => {
+    dispatch({ type: 'FETCH_START' });
+    try {
+      const res = await mockFetch({ page, pageSize, search });
+      if (!isMounted.current) return;
+      dispatch({ type: 'FETCH_SUCCESS', payload: res });
+    } catch (err) {
+      if (!isMounted.current) return;
+      if (err instanceof Error) {
+        dispatch({ type: 'FETCH_ERROR', error: err });
+      } else {
+        dispatch({ type: 'FETCH_ERROR', error: new Error('Unknown error occurred') });
       }
-    },
-    [onSuccess, onError],
-  );
+    }
+  }, []);
 
-  // 清理 isMounted 狀態
-  // 父層 unmount 時可確保不執行 setState 操作
-  // 若需自動清理可在父層 useEffect return 呼叫 isMounted.current = false
+  // 卸載時將 isMounted 設為 false 避免不必要的 setState 執行
   useEffect(() => {
     return () => {
       isMounted.current = false;
     };
   }, []);
 
-  return { isLoading, data, error, fetchData };
+  return { ...state, fetchData };
 };
