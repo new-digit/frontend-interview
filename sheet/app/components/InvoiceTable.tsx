@@ -8,7 +8,6 @@ import {
   TableRow,
   TableCell,
 } from '../../components/ui/table';
-import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import DeleteIcon from '../../components/icons/DeleteIcon';
 import ViewIcon from '../../components/icons/ViewIcon';
@@ -16,6 +15,7 @@ import MoreIcon from '../../components/icons/MoreIcon';
 import IconButton from '../../components/ui/IconButton';
 import Skeleton from '../../components/ui/Skeleton';
 import { AccountData } from '../api/mock';
+import { Button } from '@/components/ui/button';
 
 type InvoiceTableProps = {
   invoices: AccountData[];
@@ -96,7 +96,7 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
   return (
     <>
       {/* Header 操作列 */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-4 mb-4">
         <input
           type="text"
           value={search}
@@ -105,32 +105,27 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
           className="border border-gray-200 rounded-md px-4 py-2 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-primary"
           aria-label="Search Invoice"
         />
-        <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={onDeleteSelected}
-            disabled={selectedIds.length === 0}
-            className={cn(
-              'px-6 py-2 rounded-md font-semibold text-white bg-red-500 hover:bg-red-600 transition',
-              selectedIds.length === 0 && 'opacity-50 cursor-not-allowed',
-            )}
-            aria-label="Delete Selected Invoices"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && onDeleteSelected()}
-          >
-            DELETE
-          </button>
-          <button
-            type="button"
-            onClick={onRefresh}
-            className="px-6 py-2 rounded-md font-semibold text-white bg-purple-500 hover:bg-purple-600 transition"
-            aria-label="Refresh Invoice"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && onRefresh()}
-          >
-            REFRESH INVOICE
-          </button>
-        </div>
+        <Button
+          type="button"
+          onClick={onDeleteSelected}
+          disabled={selectedIds.length === 0}
+          className="bg-red-500 hover:bg-red-600 cursor-pointer"
+          aria-label="Delete Selected Invoices"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === 'Enter' && onDeleteSelected()}
+        >
+          DELETE
+        </Button>
+        <Button
+          type="button"
+          onClick={onRefresh}
+          className="bg-purple-500 hover:bg-purple-600 cursor-pointer"
+          aria-label="Refresh Invoice"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === 'Enter' && onRefresh()}
+        >
+          REFRESH INVOICE
+        </Button>
       </div>
       {/* 表格 */}
       <Table>
