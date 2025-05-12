@@ -90,14 +90,16 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
       <TableHeader>
         <TableRow>
           <TableHead>
-            <input
-              type="checkbox"
-              checked={selectedIds.length === invoices.length && invoices.length > 0}
-              onChange={onSelectAll}
-              aria-label="Select All"
-              tabIndex={0}
-              className="accent-primary w-4 h-4"
-            />
+            {!isLoading && (
+              <input
+                type="checkbox"
+                checked={selectedIds.length === invoices.length && invoices.length > 0}
+                onChange={onSelectAll}
+                aria-label="Select All"
+                tabIndex={0}
+                className="accent-primary w-4 h-4"
+              />
+            )}
           </TableHead>
           <TableHead>ID</TableHead>
           <TableHead>CLIENT</TableHead>
