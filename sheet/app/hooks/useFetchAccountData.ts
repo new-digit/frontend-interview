@@ -49,13 +49,19 @@ function reducer(state: State, action: Action): State {
 export const useFetchAccountData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const isMounted = useRef(true);
+  // 用於避免競態條件
+  const requestIdRef = useRef(0);
 
   const fetchData = useCallback(async ({ page, pageSize, search }: FetchParams) => {
+    const currentRequestId = ++requestIdRef.current;
     dispatch({ type: 'FETCH_START' });
     try {
       const res = await mockFetch({ page, pageSize, search });
       if (!isMounted.current) return;
-      dispatch({ type: 'FETCH_SUCCESS', payload: res });
+      // 只處理最新的請求
+      if (requestIdRef.current === currentRequestId) {
+        dispatch({ type: 'FETCH_SUCCESS', payload: res });
+      }
     } catch (err) {
       if (!isMounted.current) return;
       if (err instanceof Error) {
