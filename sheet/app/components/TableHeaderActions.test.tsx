@@ -10,7 +10,7 @@ describe('TableHeaderActions', () => {
       onSearchChange: vi.fn(),
       onDeleteSelected: vi.fn(),
       onRefresh: vi.fn(),
-      selectedCount: 1,
+      isDeleteDisabled: false,
       className: '',
       ...props,
     };
@@ -28,36 +28,24 @@ describe('TableHeaderActions', () => {
   });
 
   it('點擊 DELETE 會呼叫 onDeleteSelected', () => {
-    const { onDeleteSelected } = setup({ selectedCount: 2 });
+    const { onDeleteSelected } = setup({ isDeleteDisabled: false });
     const btn = screen.getByRole('button', { name: /delete selected invoices/i });
     fireEvent.click(btn);
     expect(onDeleteSelected).toHaveBeenCalled();
   });
 
-  it('若是沒有選擇物件，DELETE 按鈕會呈現 disabled 狀態', () => {
-    setup({ selectedCount: 0 });
+  it('isDeleteDisabled 是 true ，DELETE 按鈕會呈現 disabled 狀態，並且不能執行 onDeleteSelected', () => {
+    const { onDeleteSelected } = setup({ isDeleteDisabled: true });
     const btn = screen.getByRole('button', { name: /delete selected invoices/i });
     expect(btn).toBeDisabled();
+    fireEvent.click(btn);
+    expect(onDeleteSelected).not.toHaveBeenCalled();
   });
 
   it('點擊 REFRESH INVOICE 會呼叫 onRefresh', () => {
     const { onRefresh } = setup();
     const btn = screen.getByRole('button', { name: /refresh invoice/i });
     fireEvent.click(btn);
-    expect(onRefresh).toHaveBeenCalled();
-  });
-
-  it('按下 Enter 會呼叫 onDeleteSelected', () => {
-    const { onDeleteSelected } = setup({ selectedCount: 2 });
-    const btn = screen.getByRole('button', { name: /delete selected invoices/i });
-    fireEvent.keyDown(btn, { key: 'Enter' });
-    expect(onDeleteSelected).toHaveBeenCalled();
-  });
-
-  it('按下 Enter 會呼叫 onRefresh', () => {
-    const { onRefresh } = setup();
-    const btn = screen.getByRole('button', { name: /refresh invoice/i });
-    fireEvent.keyDown(btn, { key: 'Enter' });
     expect(onRefresh).toHaveBeenCalled();
   });
 });

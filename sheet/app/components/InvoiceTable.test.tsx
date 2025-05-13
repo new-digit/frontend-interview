@@ -34,7 +34,8 @@ describe('InvoiceTable', () => {
       onSelectAll: vi.fn(),
       onSelectRow: vi.fn(),
       onDelete: vi.fn(),
-      isLoading: false,
+      showSelectAll: true,
+      showSkeleton: false,
       ...props,
     };
     render(<InvoiceTable {...defaultProps} />);
@@ -48,17 +49,21 @@ describe('InvoiceTable', () => {
     expect(screen.getByText('B')).toBeInTheDocument();
   });
 
-  it('isLoading 狀態下顯示 skeleton，並且不能顯示全選按鈕', () => {
-    setup({ isLoading: true });
+  it('showSkeleton 時要顯示 skeleton', () => {
+    setup({ showSkeleton: true });
     expect(screen.queryByText('A')).not.toBeInTheDocument();
     expect(screen.queryByText('B')).not.toBeInTheDocument();
     expect(screen.getAllByText('', { selector: '.w-4.h-4' }).length).toBeGreaterThan(0);
-    expect(screen.queryAllByRole('checkbox').length).toBe(0);
+  });
+
+  it('showSelectAll 為 false 時，全選按鈕要消失', () => {
+    setup({ showSelectAll: false, invoices: [] });
+    expect(screen.queryByLabelText('Select All')).not.toBeInTheDocument();
   });
 
   it('全選 checkbox 行為', () => {
     const { onSelectAll } = setup();
-    const checkbox = screen.getAllByRole('checkbox')[0];
+    const checkbox = screen.queryByLabelText('Select All');
     fireEvent.click(checkbox);
     expect(onSelectAll).toHaveBeenCalled();
   });
@@ -71,10 +76,5 @@ describe('InvoiceTable', () => {
     const deleteBtns = screen.getAllByLabelText('Delete Invoice');
     fireEvent.click(deleteBtns[0]);
     expect(onDelete).toHaveBeenCalledWith(1);
-  });
-
-  it('invoices 為空陣列，全選按鈕要消失', () => {
-    setup({ invoices: [] });
-    expect(screen.queryAllByRole('checkbox').length).toBe(0);
   });
 });

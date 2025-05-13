@@ -90,7 +90,7 @@ const Page = () => {
           onSearchChange={handleSearchChange}
           onDeleteSelected={handleDeleteSelected}
           onRefresh={handleRefresh}
-          selectedCount={selectedIds.length}
+          isDeleteDisabled={selectedIds.length < 1}
         />
         {/* 錯誤訊息 */}
         {isError && (
@@ -108,7 +108,8 @@ const Page = () => {
               onSelectAll={handleSelectAll}
               onSelectRow={handleSelectRow}
               onDelete={handleDeleteSingle}
-              isLoading={getAccountData.isLoading}
+              showSelectAll={!getAccountData.isLoading && Invoices.length > 0}
+              showSkeleton={getAccountData.isLoading}
             />
             {/* 分頁 */}
             <Pagination

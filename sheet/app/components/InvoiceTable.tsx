@@ -19,7 +19,8 @@ type InvoiceTableProps = {
   onSelectAll: () => void;
   onSelectRow: (id: number) => void;
   onDelete: (id: number) => void;
-  isLoading?: boolean;
+  showSelectAll?: boolean;
+  showSkeleton?: boolean;
 };
 
 const InvoiceTableSkeletonRow = () => (
@@ -66,16 +67,15 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
   onSelectAll,
   onSelectRow,
   onDelete,
-  isLoading = false,
+  showSelectAll = true,
+  showSkeleton = false,
 }) => {
-  const invoicesCount = invoices.length;
-
   return (
     <Table>
       <TableHeader>
         <TableRow className="bg-gray-100">
           <TableHead className="pl-6 flex items-center" isShowSeparator={false}>
-            {!isLoading && invoicesCount > 0 && (
+            {showSelectAll && (
               <input
                 type="checkbox"
                 checked={selectedIds.length === invoices.length && invoices.length > 0}
@@ -95,7 +95,7 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {isLoading
+        {showSkeleton
           ? Array.from({ length: PAGE_SIZE }).map((_, idx) => <InvoiceTableSkeletonRow key={idx} />)
           : invoices.map((invoice) => (
               <InvoiceTableRow

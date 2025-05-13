@@ -7,7 +7,7 @@ interface TableHeaderActionsProps {
   onSearchChange: (value: string) => void;
   onDeleteSelected: () => void;
   onRefresh: () => void;
-  selectedCount: number;
+  isDeleteDisabled: boolean;
   className?: string;
 }
 
@@ -15,7 +15,7 @@ const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
   onSearchChange,
   onDeleteSelected,
   onRefresh,
-  selectedCount,
+  isDeleteDisabled,
   className,
 }) => {
   // 用 useMemo 確保 debounce 只建立一次
@@ -45,11 +45,10 @@ const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
       <Button
         type="button"
         onClick={onDeleteSelected}
-        disabled={selectedCount < 1}
+        disabled={isDeleteDisabled}
         className="bg-red-500 hover:bg-red-600 cursor-pointer"
         aria-label="Delete Selected Invoices"
         tabIndex={0}
-        onKeyDown={(e) => e.key === 'Enter' && onDeleteSelected()}
       >
         DELETE
       </Button>
@@ -59,7 +58,6 @@ const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
         className="bg-purple-500 hover:bg-purple-600 cursor-pointer"
         aria-label="Refresh Invoice"
         tabIndex={0}
-        onKeyDown={(e) => e.key === 'Enter' && onRefresh()}
       >
         REFRESH INVOICE
       </Button>
