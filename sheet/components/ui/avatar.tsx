@@ -9,7 +9,7 @@ interface UserAvatarProps {
   height?: number;
 }
 
-const DEFAULT_AVATAR = '/profile.png';
+const DEFAULT_AVATAR = '/profile-1.png';
 
 const Avatar: React.FC<UserAvatarProps> = ({
   alt = 'User Avatar',
