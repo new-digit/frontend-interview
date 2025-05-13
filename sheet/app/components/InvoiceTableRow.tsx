@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { AccountData } from '../api/mock';
 import { TableRow, TableCell } from '@/components/ui/table';
 import IconButton from '../../components/ui/iconButton';
@@ -15,11 +14,12 @@ interface InvoiceTableRowProps {
   onDelete: (id: number) => void;
 }
 
-const getAvatar = (id: number) => `/avatars/0${(id % 7) + 1}.png`;
-
 function formatCurrency(amount: number) {
   return amount < 0 ? `-$${Math.abs(amount).toLocaleString()}` : `$${amount.toLocaleString()}`;
 }
+
+// 因作業需要，使用八張圖片進行示範，因此使用 id 來取得圖片
+const getAvatarSrc = (id: number) => `/profile-${(id % 8) + 1}.png`;
 
 const renderStatus = (hasPaid: boolean) => {
   if (hasPaid)
@@ -62,12 +62,16 @@ const InvoiceTableRow: React.FC<InvoiceTableRowProps> = ({
       <TableCell>
         <span className="text-purple-500">#{invoice.id}</span>
       </TableCell>
-      <TableCell>
-        <div className="flex items-center gap-3 w-full xl:w-1/2">
-          <Avatar alt={invoice.name} />
-          <div>
-            <div className="font-medium text-gray-900">{invoice.name}</div>
-            <div className="text-xs text-gray-500">{invoice.mail}</div>
+      <TableCell className="flex justify-center min-w-[250px]">
+        <div className="flex items-center gap-3 w-full max-w-[250px]">
+          <Avatar src={getAvatarSrc(invoice.id)} alt={invoice.name} />
+          <div className="text-left max-w-[200px]">
+            <div className="font-medium text-gray-900 text-ellipsis overflow-hidden whitespace-nowrap">
+              {invoice.name}
+            </div>
+            <div className="text-xs text-gray-500 text-ellipsis overflow-hidden whitespace-nowrap">
+              {invoice.mail}
+            </div>
           </div>
         </div>
       </TableCell>
