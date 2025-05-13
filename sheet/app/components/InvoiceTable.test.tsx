@@ -53,7 +53,7 @@ describe('InvoiceTable', () => {
     setup({ showSkeleton: true });
     expect(screen.queryByText('A')).not.toBeInTheDocument();
     expect(screen.queryByText('B')).not.toBeInTheDocument();
-    expect(screen.getAllByText('', { selector: '.w-4.h-4' }).length).toBeGreaterThan(0);
+    expect(screen.getAllByTestId('skeleton').length).toBeGreaterThan(0);
   });
 
   it('showSelectAll 為 false 時，全選按鈕要消失', () => {
