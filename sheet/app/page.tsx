@@ -5,9 +5,20 @@ import { useFetchAccountData } from './hooks/useFetchAccountData';
 import Pagination from '@/components/ui/pagination';
 import TableHeaderActions from './components/TableHeaderActions';
 import { PAGE_SIZE } from './constants';
+import { AccountData } from './api/mock';
+
+/**
+ * 過濾已被刪除的收款單
+ * @param data - 收款單列表
+ * @param removeInvoiceIds - 已被刪除的收款單 ID 列表
+ * @returns 過濾後的收款單列表
+ */
+const filterInvoiceData = (data: AccountData[], removeInvoiceIds: number[]) => {
+  return data.filter((Invoice) => !removeInvoiceIds.includes(Invoice.id));
+};
 
 const Page = () => {
-  // 因作業關係，並無需要執行 API，因此使用狀態來模擬已被刪除的收款單，並會在搜尋或是換頁時重置
+  // 因作業關係，並無需要執行 API，因此使用以下狀態來模擬已被刪除的收款單，並會在搜尋或是換頁時重置
   const [removeInvoiceIds, setRemoveInvoiceIds] = useState<number[]>([]);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const getAccountData = useFetchAccountData();
@@ -17,8 +28,7 @@ const Page = () => {
   }, []);
 
   // 收款單列表
-  const Invoices =
-    getAccountData.data?.data.filter((Invoice) => !removeInvoiceIds.includes(Invoice.id)) ?? [];
+  const Invoices = filterInvoiceData(getAccountData.data?.data ?? [], removeInvoiceIds);
 
   const isError = !!getAccountData.error;
 
@@ -32,7 +42,7 @@ const Page = () => {
     setSelectedIds([]);
   };
 
-  // 全選
+  // 全選收款單
   const handleSelectAll = () => {
     if (selectedIds.length === Invoices.length) {
       resetSelectedIds();
@@ -41,7 +51,7 @@ const Page = () => {
     setSelectedIds(Invoices?.map((i) => i.id) || []);
   };
 
-  // 單選
+  // 單選收款單
   const handleSelectRow = (id: number) => {
     setSelectedIds((prev) =>
       prev.includes(id) ? prev.filter((sid) => sid !== id) : [...prev, id],
