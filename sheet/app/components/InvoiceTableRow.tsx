@@ -7,16 +7,13 @@ import ViewIcon from '../../components/icons/view';
 import MoreIcon from '../../components/icons/more';
 import Avatar from '@/components/ui/avatar';
 import { formatDateTime } from '../utils/formatDataTime';
+import { formatCurrency } from '../utils/formatCurrency';
 
 interface InvoiceTableRowProps {
   invoice: AccountData;
   selected: boolean;
   onSelectRow: (id: number) => void;
   onDelete: (id: number) => void;
-}
-
-function formatCurrency(amount: number) {
-  return amount < 0 ? `-$${Math.abs(amount).toLocaleString()}` : `$${amount.toLocaleString()}`;
 }
 
 // 因作業需要，使用八張圖片進行示範，因此使用 id 來取得圖片
@@ -76,7 +73,9 @@ const InvoiceTableRow: React.FC<InvoiceTableRowProps> = ({
           </div>
         </div>
       </TableCell>
-      <TableCell className="text-gray-500 text-right">{`$${invoice.totalBalance.toLocaleString()}`}</TableCell>
+      <TableCell className="text-gray-500 text-right">
+        {formatCurrency(invoice.totalBalance)}
+      </TableCell>
       <TableCell className="text-gray-500">{formatDateTime(invoice.issueDate)}</TableCell>
       <TableCell>
         {showBalance ? formatCurrency(invoice.balance) : renderStatus(invoice.hasPaid)}
