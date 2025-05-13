@@ -6,6 +6,7 @@ import DeleteIcon from '../../components/icons/delete';
 import ViewIcon from '../../components/icons/view';
 import MoreIcon from '../../components/icons/more';
 import Avatar from '@/components/ui/avatar';
+import { formatDateTime } from '../utils/formatDataTime';
 
 interface InvoiceTableRowProps {
   invoice: AccountData;
@@ -76,9 +77,7 @@ const InvoiceTableRow: React.FC<InvoiceTableRowProps> = ({
         </div>
       </TableCell>
       <TableCell className="text-gray-500 text-right">{`$${invoice.totalBalance.toLocaleString()}`}</TableCell>
-      <TableCell className="text-gray-500">
-        {new Date(invoice.issueDate).toLocaleDateString()}
-      </TableCell>
+      <TableCell className="text-gray-500">{formatDateTime(invoice.issueDate)}</TableCell>
       <TableCell>
         {showBalance ? formatCurrency(invoice.balance) : renderStatus(invoice.hasPaid)}
       </TableCell>
