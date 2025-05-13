@@ -1,11 +1,6 @@
 import { useRef, useCallback, useEffect, useReducer } from 'react';
 import { mockFetch, AccountData } from '../api/mock';
 
-interface UseFetchAccountDataOptions {
-  onSuccess?: (data: AccountData[]) => void;
-  onError?: (error: Error) => void;
-}
-
 interface FetchParams {
   page: number;
   pageSize: number;
