@@ -77,4 +77,9 @@ describe('InvoiceTable', () => {
     fireEvent.click(deleteBtns[0]);
     expect(onDelete).toHaveBeenCalledWith(1);
   });
+
+  it('無資料時要顯示無資料的訊息', () => {
+    setup({ invoices: [], showSkeleton: false });
+    expect(screen.getByText('無資料')).toBeInTheDocument();
+  });
 });

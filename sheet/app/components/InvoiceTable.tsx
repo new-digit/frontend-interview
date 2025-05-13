@@ -95,17 +95,26 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {showSkeleton
-          ? Array.from({ length: PAGE_SIZE }).map((_, idx) => <InvoiceTableSkeletonRow key={idx} />)
-          : invoices.map((invoice) => (
-              <InvoiceTableRow
-                key={invoice.id}
-                invoice={invoice}
-                selected={selectedIds.includes(invoice.id)}
-                onSelectRow={onSelectRow}
-                onDelete={onDelete}
-              />
-            ))}
+        {showSkeleton ? (
+          Array.from({ length: PAGE_SIZE }).map((_, idx) => <InvoiceTableSkeletonRow key={idx} />)
+        ) : invoices.length === 0 ? (
+          <TableRow>
+            <TableCell colSpan={7} className="py-12 text-center text-gray-500 text-lg">
+              <span className="block text-3xl mb-2">😢</span>
+              無資料
+            </TableCell>
+          </TableRow>
+        ) : (
+          invoices.map((invoice) => (
+            <InvoiceTableRow
+              key={invoice.id}
+              invoice={invoice}
+              selected={selectedIds.includes(invoice.id)}
+              onSelectRow={onSelectRow}
+              onDelete={onDelete}
+            />
+          ))
+        )}
       </TableBody>
     </Table>
   );
