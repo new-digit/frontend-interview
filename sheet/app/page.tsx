@@ -92,7 +92,7 @@ const Page = () => {
   };
 
   return (
-    <main className="m-8">
+    <main className="mx-8 my-4">
       <div className="bg-white rounded-xl shadow py-6">
         {/* Header 操作列 */}
         <TableHeaderActions
