@@ -4,13 +4,13 @@ import { formatDateTime } from './formatDataTime';
 describe('formatDateTime', () => {
   it('正常 timestamp', () => {
     const ts = new Date('2024-01-01').getTime();
-    expect(formatDateTime(ts)).toMatch(/2024/);
+    expect(formatDateTime(ts)).toBe('01 Jan 2024');
   });
   it('timestamp 為 0', () => {
     expect(formatDateTime(0)).toBe('');
   });
   it('timestamp 為負數', () => {
-    expect(formatDateTime(-1000000000000)).toMatch(/19/); // 1938年
+    expect(formatDateTime(-1000000000000)).toBe('25 Apr 1938');
   });
   describe('錯誤與邊界值', () => {
     it('timestamp 為 undefined', () => {
