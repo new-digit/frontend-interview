@@ -68,12 +68,14 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
   onDelete,
   isLoading = false,
 }) => {
+  const invoicesCount = invoices.length;
+
   return (
     <Table>
       <TableHeader>
         <TableRow className="bg-gray-100">
           <TableHead className="pl-6 flex items-center" isShowSeparator={false}>
-            {!isLoading && (
+            {!isLoading && invoicesCount > 0 && (
               <input
                 type="checkbox"
                 checked={selectedIds.length === invoices.length && invoices.length > 0}
