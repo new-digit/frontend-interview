@@ -45,7 +45,7 @@ const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
       <Button
         type="button"
         onClick={onDeleteSelected}
-        disabled={selectedCount === 0}
+        disabled={selectedCount < 1}
         className="bg-red-500 hover:bg-red-600 cursor-pointer"
         aria-label="Delete Selected Invoices"
         tabIndex={0}

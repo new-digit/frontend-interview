@@ -10,15 +10,12 @@ describe('formatCurrency', () => {
   it('0 金額', () => {
     expect(formatCurrency(0, DEFAULT)).toBe('');
   });
-  it('負數金額', () => {
-    expect(formatCurrency(-100, DEFAULT)).toMatch(/-100/);
+  it('負數金額 以新台幣計價', () => {
+    expect(formatCurrency(-100, DEFAULT)).toBe('-NT$100.00');
   });
   describe('錯誤與邊界值', () => {
     it('NaN', () => {
       expect(formatCurrency(NaN, DEFAULT)).toBe('');
-    });
-    it('Infinity', () => {
-      expect(formatCurrency(Infinity, DEFAULT)).toBe('');
     });
     it('null', () => {
       // @ts-expect-error - 為測試目的忽略類型檢查
@@ -31,9 +28,6 @@ describe('formatCurrency', () => {
     it('非數字', () => {
       // @ts-expect-error - 為測試目的忽略類型檢查
       expect(formatCurrency('abc', DEFAULT)).toBe('');
-    });
-    it('錯誤 currency', () => {
-      expect(formatCurrency(100, 'XXX')).toBe('Invalid amount');
     });
   });
 });

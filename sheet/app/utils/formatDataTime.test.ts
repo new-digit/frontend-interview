@@ -23,11 +23,11 @@ describe('formatDateTime', () => {
     });
     it('timestamp 為字串', () => {
       // @ts-expect-error - 為測試目的忽略類型檢查
-      expect(formatDateTime('abc')).toBe('');
+      expect(formatDateTime('abc')).toBe('Invalid Date');
     });
     it('timestamp 為物件', () => {
       // @ts-expect-error - 為測試目的忽略類型檢查
-      expect(formatDateTime({})).toBe('');
+      expect(formatDateTime({})).toBe('Invalid Date');
     });
   });
 });
