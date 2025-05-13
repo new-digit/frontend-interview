@@ -130,6 +130,8 @@ const Page = () => {
               pageCount={Math.ceil((getAccountData.data?.totalCount ?? 0) / PAGE_SIZE)}
               currentPage={getAccountData.data?.currentPage ?? 1}
               onPageChange={handlePageChange}
+              // 因應作業需求會根據模擬資料進行刪除過濾，因此需要提供自定義的結束筆數，讓 UI 顯示正確
+              customEnd={Invoices.length}
             />
           </>
         )}

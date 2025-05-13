@@ -12,6 +12,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
   className?: string;
   isLoading?: boolean;
+  customEnd?: number; // 因應作業需求，提供自定義的結束筆數，若提供為 0 則會顯示 0-0
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -22,9 +23,11 @@ const Pagination: React.FC<PaginationProps> = ({
   onPageChange,
   className,
   isLoading,
+  customEnd,
 }) => {
-  const start = totalCount === 0 ? 0 : (currentPage - 1) * pageSize + 1;
-  const end = Math.min(currentPage * pageSize, totalCount);
+  const start = totalCount === 0 || customEnd === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+  const end =
+    typeof customEnd === 'number' ? customEnd : Math.min(currentPage * pageSize, totalCount);
 
   const handlePrev = () => {
     if (currentPage > 1) onPageChange(currentPage - 1);
