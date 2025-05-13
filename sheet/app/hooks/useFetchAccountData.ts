@@ -41,6 +41,15 @@ function reducer(state: State, action: Action): State {
   }
 }
 
+/**
+ * 用於取得帳戶資料的自訂 Hook
+ *
+ * @returns {object} 包含以下屬性:
+ * - isLoading: 是否正在取得資料中
+ * - data: 帳戶資料，包含分頁資訊
+ * - error: 錯誤訊息
+ * - fetchData: 取得資料的函式，可傳入頁碼、每頁筆數、搜尋關鍵字
+ */
 export const useFetchAccountData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const isMounted = useRef(true);
