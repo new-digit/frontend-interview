@@ -24,7 +24,7 @@ describe('分頁元件 Pagination', () => {
   });
 
   it('載入中時應顯示 Skeleton 畫面', () => {
-    render(<Pagination {...defaultProps} isLoading />);
+    render(<Pagination {...defaultProps} showSkeleton />);
     expect(screen.getByTestId('skeleton')).toBeInTheDocument();
   });
 

@@ -11,7 +11,7 @@ interface PaginationProps {
   currentPage: number;
   onPageChange: (page: number) => void;
   className?: string;
-  isLoading?: boolean;
+  showSkeleton?: boolean;
   customEnd?: number; // 因應作業需求，提供自定義的結束筆數，若提供為 0 則會顯示 0-0
 }
 
@@ -22,7 +22,7 @@ const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   onPageChange,
   className,
-  isLoading,
+  showSkeleton,
   customEnd,
 }) => {
   const start = totalCount === 0 || customEnd === 0 ? 0 : (currentPage - 1) * pageSize + 1;
@@ -41,7 +41,7 @@ const Pagination: React.FC<PaginationProps> = ({
       className={cn('flex items-center justify-end mt-4 text-sm text-gray-500 gap-4', className)}
     >
       <span>
-        {isLoading ? (
+        {showSkeleton ? (
           <Skeleton className="w-12 h-4 rounded-full" />
         ) : (
           <>

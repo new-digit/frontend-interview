@@ -123,7 +123,7 @@ const Page = () => {
             />
             {/* 分頁 */}
             <Pagination
-              isLoading={getAccountData.isLoading}
+              showSkeleton={getAccountData.isLoading}
               className="px-6"
               totalCount={getAccountData.data?.totalCount ?? 0}
               pageSize={PAGE_SIZE}
